@@ -1,1 +1,1 @@
-charts/file-transfer/README.md
+# file-transfer-helm

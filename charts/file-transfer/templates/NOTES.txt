@@ -1,3 +1,0 @@
-{{- range .Values.streams }}
-* A File Transfer Stream is installed in the namespace: {{ $.Release.Namespace }} as {{ .stream }}
-{{- end }}
