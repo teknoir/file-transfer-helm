@@ -1,0 +1,101 @@
+# Example for minimal configuration
+streams:
+  - stream: prepare-file
+  - stream: transfer-file
+
+# Values possible for File Transfer
+defaults:
+  stream: prepare-file
+  annotations:
+    teknoir.org/managed-by: devstudio
+  image:
+    repository: us-docker.pkg.dev/teknoir/gcr.io/observatory-event-processing
+    tag: main-f08ba6a
+  # Set the log level for the nvr
+  # - DEBUG
+  # - INFO
+  # - WARNING
+  # - ERROR
+  debugLevel: INFO
+  mqtt:
+    # Local MQTT broker
+    broker: mqtt.kube-system
+    port: 1883
+    username: "emqx_operator_controller"
+    password: ""
+    qos: 2
+    keepAliveInterval: 10
+    connectRetryInterval: 10
+    # Topics
+    topicSink: "events/sink"
+    topicSource: "events/source"
+    topicAllCameras: "camera/frames/#"
+    topicDetections: "events/detections"
+    topicInference: "events/inference"
+    topicMovements: "events/movements"
+    topicFilteredMovements: "events/filtered-movements"
+    topicAlerts: "events/alerts"
+    topicStaleAlerts: "toe/events/stale-alerts"
+    topicSensors: "events/sensors"
+    topicMeasurements: "events/measurements"
+    topicToeEvents: "toe/events"
+    topicToeCommands: "toe/commands/devstudio"
+    topicAllDevices: "/devices/+/events"
+  resources:
+    limits:
+      cpu: 2000m
+      memory: 2048Mi
+    requests:
+      cpu: 10m
+      memory: 50Mi
+  fe:
+    frontEndDefaultInterval: 60 # seconds
+  historian:
+    apiUrl: "http://historian-api:8000"
+    recordDetectionsInterval: 333 # milliseconds
+    objectsToFilter: "car,truck,motorbike,person,face" # supports multiple labels via comma separated list
+  regions:
+    iouThreshold: 0.001 # default Intersection Over Union (IOU) threshold for object detection inside region
+  video:
+    minStartBeforeAlert: 10 # seconds
+    mountSegmentPath: false
+    segmentPath: "/opt/teknoir/video/segments"
+    mountClipTempPath: false
+    clipTempPath: "/opt/teknoir/video/clips"
+    segmentLength: 15 # seconds
+    segmentRetentionLength: 5760 # segments
+    maxClipLength: 600 # seconds
+    clipRunupLength: 10 # seconds
+    chunkMaxSize: 600000 # bytes
+    chunkRetentionSeconds: 300 # seconds
+    videoBucketPath: "media/videos"
+    hasAnnotations: true
+    annotationsBucketPath: "media/annotations"
+    snapshotBucketPath: "media/snapshots"
+    staleSeconds: 30 # seconds
+  alerts:
+    personDownInterval: 10
+    personDownScoreThreshold: 0.85
+    personUpScoreThreshold: 0.75
+    personDownUpTotalCountThreshold: 10
+    loiteringLabels: "person" # supports multiple labels via comma separated list
+    sensorsNodeData: "{}"
+    loiteringThreshold: 60 # 60 seconds
+    loiteringCheckStationary: true
+    loiteringStationaryThreshold: 0.01 # 1% of FOV
+    repetitiveAlertsCheck: true
+    repetitiveAlertsTimespan: 3600 # seconds
+    repetitiveAlertsIouThreshold: 0.9 # 90%
+    safeOpenWindowSizeSeconds: 5 # Default window size of 5 seconds
+    numberOfDominantLabels: 5
+    motionAlertMinInterval: 30 # 30 seconds
+    alertHeatmapEnabled: true
+    alertHeatmapGridSize: 20  # NXN grid size
+    alertHeatmapEventsRetentionPeriod: 86400 # 24h = 86400 seconds
+    alertHeatmapThresholdFilter: 900 # Alert frequency threshold for certain region, default 900s (every 15 minutes). Alert is filtered if it occurs more frequently than this.
+    alertHeatmapAlertsToFilter: "loitering,person_down" # Alerts to filter out from the heatmap, e.g. "loitering"
+  # Deprecated and will be removed in future versions when we find a new way to handle this
+  labels:
+    deviceID: "test-device"
+    teamspace: "test-teamspace"
+    domain: "teknoir.cloud"
