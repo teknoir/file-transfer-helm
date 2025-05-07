@@ -58,9 +58,9 @@ defaults:
     iouThreshold: 0.001 # default Intersection Over Union (IOU) threshold for object detection inside region
   video:
     minStartBeforeAlert: 10 # seconds
-    mountSegmentPath: false
+    mountSegmentPath: true
     segmentPath: "/opt/teknoir/video/segments"
-    mountClipTempPath: false
+    mountClipTempPath: true
     clipTempPath: "/opt/teknoir/video/clips"
     segmentLength: 15 # seconds
     segmentRetentionLength: 5760 # segments
