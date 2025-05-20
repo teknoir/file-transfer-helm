@@ -3,6 +3,16 @@ entries:
   file-transfer:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2025-05-20T08:57:31.35300715Z"
+    description: A Helm chart for File Transfer
+    digest: 53f58f0d000a94613eb0cebe6e97ac1429772daaacef0add9790585a9cafb317
+    name: file-transfer
+    type: application
+    urls:
+    - https://github.com/teknoir/file-transfer-helm/releases/download/file-transfer-0.0.6/file-transfer-0.0.6.tgz
+    version: 0.0.6
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2025-05-07T11:50:52.014570848Z"
     description: A Helm chart for File Transfer
     digest: 7a95e27fefecf6c1100371ebb7293092f2e09ec98614ed7961db6f07a056c360
@@ -51,4 +61,4 @@ entries:
     urls:
     - https://github.com/teknoir/file-transfer-helm/releases/download/file-transfer-0.0.1/file-transfer-0.0.1.tgz
     version: 0.0.1
-generated: "2025-05-07T11:50:52.014591506Z"
+generated: "2025-05-20T08:57:31.353038118Z"
